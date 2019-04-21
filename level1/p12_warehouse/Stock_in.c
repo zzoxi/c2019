@@ -1,0 +1,55 @@
+#include"stock.h"
+void Stock_in(void)
+{
+	int i;
+	int x=1;
+	char judge;
+	while(1)
+	{
+		i=1;
+		printf("输入入库货物名称:");
+		correct=scanf("%s",&in[x].name);
+		if(correct!=1)
+		{
+			printf("错误输入\n");
+			fflush(stdin);
+			continue;
+		} 
+		getchar();
+		printf("输入入库的数量:");
+		correct=scanf("%d",&in[x].quantity); 
+		if(correct!=1)
+		{
+			printf("错误输入\n");
+			fflush(stdin);
+			continue;
+		} 
+		getchar();
+		for(i=1;i<=m;i++)
+		{
+			if(strcmp(in[x].name,all[i].name)==0)
+			{
+				all[i].quantity=all[i].quantity+in[x].quantity;
+				break;
+			}
+		}
+		if(i>m)
+		{
+			strcpy(all[i].name,in[x].name);
+			all[i].quantity=in[x].quantity;
+			m++;
+		}
+		printf("输入y或Y继续\n");
+		judge=getch();
+		if((judge=='Y')||(judge=='y'))
+		{
+			x++;
+			continue;
+		}
+		else
+		{
+			Save_file();
+		} 
+		break;		
+	}
+}
